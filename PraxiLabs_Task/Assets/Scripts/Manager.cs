@@ -20,9 +20,9 @@ public class Manager : MonoBehaviour
     [SerializeField] ObjectDataList_SO objectsData_List;
     [SerializeField] Transform viewPoint;
     [SerializeField, ReadOnly] Color currentColorInUse;
+    [SerializeField, ReadOnly] GameObject currentObjectInUse;
 
-    public Dictionary<GameObject, ObjectData_SO> InstanObjects_Dict;
-    public int IndexOfObjectViewed { get; set; }
+    private Dictionary<GameObject, ObjectData_SO> InstanObjects_Dict;
 
     public delegate void ColorChangedEvent(Color _color);
     public event ColorChangedEvent OnColorChanged_Event;
@@ -47,12 +47,23 @@ public class Manager : MonoBehaviour
 
             InstanObjects_Dict.Add(objectInstan, _object);
         }
+        currentObjectInUse = new GameObject();
     }
 
     public void ViewObject(string _name)
     {
         KeyValuePair<GameObject, ObjectData_SO> itemTobeViewed = InstanObjects_Dict.Where(p => p.Value.objectName.Value == _name).First();
+
+        if (itemTobeViewed.Key == null || itemTobeViewed.Value == null)
+            Debug.LogError(string.Format("{0} is not included, make sure that it is added to the \"ObjectsData_List\" scriptableObject", _name));
+
+        if (currentObjectInUse == itemTobeViewed.Key) return;
+
+        currentObjectInUse.SetActive(false);
         itemTobeViewed.Key.SetActive(true);
+
+        currentObjectInUse = itemTobeViewed.Key;
+        currentColorInUse = new Color(0, 0, 0, 0);
     }
 
     public void ColorSelected(Color _colorToBe)
