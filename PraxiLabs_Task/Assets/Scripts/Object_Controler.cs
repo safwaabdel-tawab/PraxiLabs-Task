@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Object_Controler : MonoBehaviour
+public class Object_Controler : MonoBehaviour, IColor
 {
     [SerializeField] 
     private ObjectData_SO objectData_SO;
@@ -14,8 +14,11 @@ public class Object_Controler : MonoBehaviour
     public Object_Controler()
     {
         model = new Object_Model();
-        _renderer = GetComponent<Renderer>();
+    }
 
+    private void Start()
+    {
+        _renderer = GetComponent<Renderer>();
         Manager.Instance.OnColorChanged_Event += ChangeColor;
     }
 
@@ -24,5 +27,10 @@ public class Object_Controler : MonoBehaviour
         _renderer.GetPropertyBlock(_propBlock);
         _propBlock.SetColor("_Color", color);
         _renderer.SetPropertyBlock(_propBlock);
+    }
+
+    public Color MyColor()
+    {
+        return _renderer.material.color;
     }
 }
