@@ -16,9 +16,11 @@ public class Object_Controler : MonoBehaviour, IColor
         model = new Object_Model();
     }
 
-    private void Start()
+    private void Awake()
     {
         _renderer = GetComponent<Renderer>();
+        _propBlock = new MaterialPropertyBlock();
+
         Manager.Instance.OnColorChanged_Event += ChangeColor;
     }
 
@@ -27,6 +29,8 @@ public class Object_Controler : MonoBehaviour, IColor
         _renderer.GetPropertyBlock(_propBlock);
         _propBlock.SetColor("_Color", color);
         _renderer.SetPropertyBlock(_propBlock);
+
+       // UpdateModelData()
     }
 
     public Color MyColor()
