@@ -51,7 +51,7 @@ public class Manager : MonoBehaviour
 
     public void ViewObject(string _name)
     {
-        KeyValuePair<GameObject, ObjectData_SO> itemTobeViewed = InstanObjects_Dict.Where(p => p.Value.objectName == _name).First();
+        KeyValuePair<GameObject, ObjectData_SO> itemTobeViewed = InstanObjects_Dict.Where(p => p.Value.objectName.Value == _name).First();
         itemTobeViewed.Key.SetActive(true);
     }
 
