@@ -20,10 +20,17 @@ public class Object_Controler : MonoBehaviour, IColor
     {
         _renderer = GetComponent<Renderer>();
         _propBlock = new MaterialPropertyBlock();
+    }
 
+    private void OnEnable()
+    {
         Manager.Instance.OnColorChanged_Event += ChangeColor;
     }
 
+    private void OnDisable()
+    {
+        Manager.Instance.OnColorChanged_Event -= ChangeColor;
+    }
     public void ChangeColor(Color color)
     {
         _renderer.GetPropertyBlock(_propBlock);
