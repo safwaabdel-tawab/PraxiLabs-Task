@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb5581cda6104343bc981afa996402b, type: 3}
   m_Name: Cube_ObjectData
   m_EditorClassIdentifier: 
-  objectName: Cube
+  objectName: {fileID: 11400000, guid: 367f912e7881c3548a9d996192028efa, type: 2}
   objectPrefab: {fileID: 4411162917615824110, guid: a433b93006d2b6c44a08eb8ba39abd93, type: 3}

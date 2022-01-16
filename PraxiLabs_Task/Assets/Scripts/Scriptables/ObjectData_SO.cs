@@ -5,6 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Scriptables/ObjectData")]
 public class ObjectData_SO : ScriptableObject
 {
-    public string objectName;
+    public StringField objectName;
     public GameObject objectPrefab;
 }

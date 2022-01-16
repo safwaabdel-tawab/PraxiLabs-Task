@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb5581cda6104343bc981afa996402b, type: 3}
   m_Name: Cylinder_ObjectData
   m_EditorClassIdentifier: 
-  objectName: Cylinder
+  objectName: {fileID: 11400000, guid: 27ce841f29f6f99498e711c22a31a7ca, type: 2}
   objectPrefab: {fileID: 1142379122110631551, guid: 9c3a559b060410c44882eb390e6bd9dc, type: 3}
