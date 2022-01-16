@@ -1772,8 +1772,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67fb4bbed4734ab4e8d28ed40ee8b54a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectsData_List: {fileID: 0}
-  viewPoint: {fileID: 0}
+  objectsData_List: {fileID: 11400000, guid: bc55dcf3b3859fa40b82e7f89e1b65ac, type: 2}
+  viewPoint: {fileID: 974451733}
   currentColorInUse: {r: 0, g: 0, b: 0, a: 0}
 --- !u!4 &2074802263
 Transform:
