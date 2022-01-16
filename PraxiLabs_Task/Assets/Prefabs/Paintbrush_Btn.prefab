@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 417200655014643923}
   - component: {fileID: 417200655014643920}
   - component: {fileID: 417200655014643921}
+  - component: {fileID: -4713700508805839887}
   m_Layer: 5
   m_Name: Paintbrush_Btn
   m_TagString: Untagged
@@ -119,3 +120,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &-4713700508805839887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417200655014643951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a406864fc6d4de47a6b30ca0a878ff9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brush_Img: {fileID: 417200655014643920}
+  button: {fileID: 417200655014643921}
