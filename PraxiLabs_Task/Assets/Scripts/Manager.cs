@@ -73,7 +73,7 @@ public class Manager : MonoBehaviour
 
         currentColorInUse = _colorToBe;
 
-        OnColorChanged_Event(currentColorInUse);
+        OnColorChanged_Event?.Invoke(currentColorInUse);
     }
 
     public bool ColorsDoMatch(Color _color1, Color _color2)
