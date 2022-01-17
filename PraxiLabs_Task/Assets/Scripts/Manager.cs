@@ -21,6 +21,7 @@ public class Manager : MonoBehaviour
     [SerializeField] Transform viewPoint;
     [SerializeField, ReadOnly] Color currentColorInUse;
     [SerializeField, ReadOnly] GameObject currentObjectInUse;
+    public Camera cam;
 
     private Dictionary<GameObject, ObjectData_SO> InstanObjects_Dict;
 
