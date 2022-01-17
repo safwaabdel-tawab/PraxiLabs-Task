@@ -9,6 +9,7 @@ public class Object_Controler : MonoBehaviour, IColor
 
     private Renderer _renderer;
     private MaterialPropertyBlock _propBlock;
+    private Manager _manager;
     public Object_Model model { get; private set; }
 
     public Object_Controler()
@@ -20,16 +21,17 @@ public class Object_Controler : MonoBehaviour, IColor
     {
         _renderer = GetComponent<Renderer>();
         _propBlock = new MaterialPropertyBlock();
+        _manager = Manager.Instance;
     }
 
     private void OnEnable()
     {
-        Manager.Instance.OnColorChanged_Event += ChangeColor;
+        _manager.OnColorChanged_Event += ChangeColor;
     }
 
     private void OnDisable()
     {
-        Manager.Instance.OnColorChanged_Event -= ChangeColor;
+        _manager.OnColorChanged_Event -= ChangeColor;
     }
     public void ChangeColor(Color color)
     {
