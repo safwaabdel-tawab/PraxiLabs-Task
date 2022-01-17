@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 using UnityEngine;
 
 public class Shape_Option_Btn : MonoBehaviour
@@ -12,7 +10,7 @@ public class Shape_Option_Btn : MonoBehaviour
     {
         button.onClick.AddListener(delegate
         {
-            Manager.Instance.ViewObject(object_SF.Value);
+            Manager.Instance.ObjectSelected(object_SF.Value);
         });
     }
 }

@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [ExecuteAlways]
 [RequireComponent(typeof(Camera))]
 public class ResizeObjects : MonoBehaviour
 {
     [SerializeField, ReadOnly] float horizontalFoV = 90.0f;
-    
     Camera _camera;
+
     void Start()
     {
         _camera = GetComponent<Camera>();

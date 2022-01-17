@@ -33,6 +33,7 @@ public class Object_Controler : MonoBehaviour, IColor
     {
         _manager.OnColorChanged_Event -= ChangeColor;
     }
+
     public void ChangeColor(Color color)
     {
         _renderer.GetPropertyBlock(_propBlock);

@@ -19,9 +19,11 @@ public class Manager : MonoBehaviour
 
     [SerializeField] ObjectDataList_SO objectsData_List;
     [SerializeField] Transform viewPoint;
+    public Camera cam;
+
+    [Header("Read Only")]
     [SerializeField, ReadOnly] Color currentColorInUse;
     [SerializeField, ReadOnly] GameObject currentObjectInUse;
-    public Camera cam;
 
     private Dictionary<GameObject, ObjectData_SO> InstanObjects_Dict;
 
@@ -41,42 +43,49 @@ public class Manager : MonoBehaviour
         {
             GameObject objectInstan = Instantiate(_object.objectPrefab, viewPoint);
 
-            Object_Controler object_Controler = objectInstan.GetComponent<Object_Controler>();
-            object_Controler = new Object_Controler();
+            //Object_Controler object_Controler = objectInstan.GetComponent<Object_Controler>();
+            //object_Controler = new Object_Controler();
 
             objectInstan.gameObject.SetActive(false);
 
             InstanObjects_Dict.Add(objectInstan, _object);
         }
-        currentObjectInUse = new GameObject();
     }
 
-    public void ViewObject(string _name)
+    /// <summary>
+    /// Views the object that has been selected, and disable the old viewed object.
+    /// </summary>
+    /// <param name="_name"></param>
+    public void ObjectSelected(string _name)
     {
         KeyValuePair<GameObject, ObjectData_SO> itemTobeViewed = InstanObjects_Dict.Where(p => p.Value.objectName.Value == _name).First();
 
         if (itemTobeViewed.Key == null || itemTobeViewed.Value == null)
-            Debug.LogError(string.Format("{0} is not included, make sure that it is added to the \"ObjectsData_List\" scriptableObject", _name));
+            Debug.LogError(string.Format("{0} is not included right, make sure that it is added to the \"ObjectsData_List\" scriptableObject", _name));
 
         if (currentObjectInUse == itemTobeViewed.Key) return;
+        if (currentObjectInUse != null) currentObjectInUse.SetActive(false);
 
-        currentObjectInUse.SetActive(false);
         itemTobeViewed.Key.SetActive(true);
 
         currentObjectInUse = itemTobeViewed.Key;
         currentColorInUse = new Color(0, 0, 0, 0);
     }
 
+    /// <summary>
+    /// Fires the OnColorChanged_Event when color changed.
+    /// </summary>
+    /// <param name="_colorToBe"></param>
     public void ColorSelected(Color _colorToBe)
     {
-        if (ColorsDoMatch(currentColorInUse, _colorToBe)) return;
+        if (DoColorsMatch(currentColorInUse, _colorToBe)) return;
 
         currentColorInUse = _colorToBe;
 
         OnColorChanged_Event?.Invoke(currentColorInUse);
     }
 
-    public bool ColorsDoMatch(Color _color1, Color _color2)
+    public bool DoColorsMatch(Color _color1, Color _color2)
     {
         return _color1.r == _color2.r && _color1.g == _color2.g && _color1.b == _color2.b && _color1.a == _color2.a;
     }
