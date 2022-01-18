@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
@@ -16,7 +15,13 @@ public class Manager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Holds all objects names and prefabs.
+    /// </summary>
     [SerializeField] ObjectDataList_SO objectsData_List;
+    /// <summary>
+    /// Parent transform that holds all the instantiated objects.
+    /// </summary>
     [SerializeField] Transform viewPoint;
     public Camera cam;
 
@@ -24,13 +29,25 @@ public class Manager : MonoBehaviour
     [SerializeField, ReadOnly] Color currentColorInUse;
     [SerializeField, ReadOnly] GameObject currentObjectInUse;
 
+    /// <summary>
+    /// key Holds objects that got instantiated, and the value holds the corresponding scriptableObject that have the name of the object and the prefab that will be instantiated.
+    /// </summary>
     private Dictionary<GameObject, ObjectData_SO> InstanObjects_Dict;
 
-    public delegate void ColorChangedEvent(Color _color);
+    //--Events--//
+    public delegate void ColorChangedEvent(Color _newColor);
+    /// <summary>
+    /// Event that gets called after Brush_Btn being clicked.
+    /// Responsible for changing color of object material and update object_model CurrentColor variable. 
+    /// </summary>
     public event ColorChangedEvent OnColorChanged_Event;
-    
+
     public delegate void SaveApp();
+    /// <summary>
+    /// Responsible for saving current object data.
+    /// </summary>
     public event SaveApp OnSaveApp_Event;
+
     Object_MVC_Element object_Element;
 
     private void Awake()
@@ -45,7 +62,7 @@ public class Manager : MonoBehaviour
         foreach (ObjectData_SO _object in objectsData_List.list)
         {
             object_Element = new Object_MVC_Element();
-            GameObject objectInstan = object_Element.Initialize(_object.objectPrefab, viewPoint, _object.objectName.Value);
+            GameObject objectInstan = object_Element.Initialize(_object.objectPrefab, viewPoint, _object.objectName.Value); //Prepare all mvc components for all the object elements that we have.
 
             InstanObjects_Dict.Add(objectInstan, _object);
         }
@@ -93,20 +110,16 @@ public class Manager : MonoBehaviour
 
     public void LoadSavedData()
     {
-        Object_Model saved_ObjectModel = object_Element.controller.Load_SavedObjectData();
+        Object_Model saved_ObjectModel = object_Element.controller.Load_SavedObjectData(); //Getting data saved.
         if (saved_ObjectModel == null) return;
 
-        ObjectSelected(saved_ObjectModel.object_name);
-        ColorSelected(new Color(saved_ObjectModel.CurrentColor[0], saved_ObjectModel.CurrentColor[1], saved_ObjectModel.CurrentColor[2]));
 
-        Vector3 savedRotation = new Vector3(saved_ObjectModel.Rotation[0], saved_ObjectModel.Rotation[1], saved_ObjectModel.Rotation[2]);
-        Debug.Log(savedRotation);
-        Debug.Log(string.Format("loading: {0}, {1}, {2}", saved_ObjectModel.Rotation[0], saved_ObjectModel.Rotation[1], saved_ObjectModel.Rotation[2]));
+        ObjectSelected(saved_ObjectModel.object_name); //View object that was last saved.
+        ColorSelected(new Color(saved_ObjectModel.CurrentColor[0], saved_ObjectModel.CurrentColor[1], saved_ObjectModel.CurrentColor[2])); //Apply color saved.
 
-
-        currentObjectInUse.transform.eulerAngles = savedRotation;
+        //Update rotation data to both gameObject and for (Object_Model when RaiseValueChanged is called).
+        currentObjectInUse.transform.eulerAngles = new Vector3(saved_ObjectModel.Rotation[0], saved_ObjectModel.Rotation[1], saved_ObjectModel.Rotation[2]);
         currentObjectInUse.GetComponent<Object_View>().RaiseValueChanged(saved_ObjectModel.Rotation);
-        //object_Element.controller.ObjectRotated(saved_ObjectModel.Rotation);
     }
 
     private void OnApplicationQuit()

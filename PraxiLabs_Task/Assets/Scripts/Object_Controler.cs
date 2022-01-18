@@ -1,8 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Object_Controler : MonoBehaviour
+/// <summary>
+/// Connects between Object_Model and Object_View
+/// </summary>
+public class Object_Controler
 {
     private Manager _manager;
     public Object_Model model { get; private set; }
@@ -18,18 +19,28 @@ public class Object_Controler : MonoBehaviour
         _manager = Manager.Instance;
     }
 
+    /// <summary>
+    /// Will be called whenever Object_View is enabled.
+    /// </summary>
     public void SubscribeToEvents()
     {
         _manager.OnColorChanged_Event += ChangeColor;
         _manager.OnSaveApp_Event += Save_CurrentObjectData;
     }
 
+    /// <summary>
+    /// Will be called whenever Object_View is disabled.
+    /// </summary>
     public void UnsubscribeFromEvents()
     {
         _manager.OnColorChanged_Event -= ChangeColor;
         _manager.OnSaveApp_Event -= Save_CurrentObjectData;
     }
 
+    /// <summary>
+    /// Update color data in model and the material color in view. 
+    /// </summary>
+    /// <param name="color"></param>
     public void ChangeColor(Color color)
     {
         view.ChangeColor(color);
