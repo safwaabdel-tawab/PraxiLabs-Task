@@ -19,7 +19,7 @@
 #### Saved Data
 - When you reopen the app you will see your selected shape with the last changes you made on it (color and rotation).
 #### Responsive View
-- The game view should be responsive in editor and in the build (was tested in editor and play-mode only though).
+- The game view should be responsive in editor, play-mode, and build (was tested in editor and play-mode only though).
 
 ### Platform used
 - PC.
