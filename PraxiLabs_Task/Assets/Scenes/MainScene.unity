@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 613110e09d3fb2d4dba4211c21fd3a70, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -333,7 +333,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1adacfa389436a41993bbb5a638459a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialFOV: 81.87053
 --- !u!1 &553644622
 GameObject:
   m_ObjectHideFlags: 0
@@ -837,7 +836,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.29
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1816,9 +1815,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectsData_List: {fileID: 11400000, guid: bc55dcf3b3859fa40b82e7f89e1b65ac, type: 2}
   viewPoint: {fileID: 974451733}
+  cam: {fileID: 234292935}
   currentColorInUse: {r: 0, g: 0, b: 0, a: 0}
   currentObjectInUse: {fileID: 0}
-  cam: {fileID: 234292935}
 --- !u!4 &2074802263
 Transform:
   m_ObjectHideFlags: 0
