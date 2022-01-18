@@ -36,6 +36,10 @@ public class Object_Controler : MonoBehaviour
         model.UpdateColor(new float[] { color.r, color.g, color.b});
     }
 
+    /// <summary>
+    /// Listens to the event that fires when the object rotate from object_view, then update rotation in Object_Model.
+    /// </summary>
+    /// <param name="rotation"></param>
     public void ObjectRotated(float[] rotation)
     {
         model.UpdateRotation(rotation);
