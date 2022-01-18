@@ -23,6 +23,10 @@ public class InputHandler : MonoBehaviour
         transform.rotation = Quaternion.AngleAxis(-rotX, up) * transform.rotation;
         transform.rotation = Quaternion.AngleAxis(rotY, right) * transform.rotation;
 
-        OnMouseDragRotate_Event?.Invoke(new float[] { transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z });
+        RaiseValueChanged(new float[] { transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z });
+    }
+    public void RaiseValueChanged(float[] rotation)
+    {
+        OnMouseDragRotate_Event?.Invoke(rotation);
     }
 }
