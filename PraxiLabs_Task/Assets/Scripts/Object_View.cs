@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Object_View : MonoBehaviour, IColor
+public class Object_View : InputHandler, IColor
 {
     private Renderer _renderer;
     private MaterialPropertyBlock _propBlock;
 
     Action AfterEnable;
     Action AfterDisable;
-    InputHandler inputHandler;
 
     private void Awake()
     {
@@ -23,9 +22,7 @@ public class Object_View : MonoBehaviour, IColor
         this.AfterEnable = AfterEnable;
         this.AfterDisable = AfterDisable;
 
-        inputHandler = GetComponent<InputHandler>();
-        inputHandler.OnMouseDragRotate_Event += ObjectRotated;
-
+        OnMouseDragRotate_Event += ObjectRotated;
     }
 
     private void OnEnable()
