@@ -97,12 +97,16 @@ public class Manager : MonoBehaviour
         if (saved_ObjectModel == null) return;
 
         ObjectSelected(saved_ObjectModel.object_name);
+        ColorSelected(new Color(saved_ObjectModel.CurrentColor[0], saved_ObjectModel.CurrentColor[1], saved_ObjectModel.CurrentColor[2]));
 
-        if (saved_ObjectModel.CurrentColor.Length == 3)
-            ColorSelected(new Color(saved_ObjectModel.CurrentColor[0], saved_ObjectModel.CurrentColor[1], saved_ObjectModel.CurrentColor[2]));
+        Vector3 savedRotation = new Vector3(saved_ObjectModel.Rotation[0], saved_ObjectModel.Rotation[1], saved_ObjectModel.Rotation[2]);
+        Debug.Log(savedRotation);
+        Debug.Log(string.Format("loading: {0}, {1}, {2}", saved_ObjectModel.Rotation[0], saved_ObjectModel.Rotation[1], saved_ObjectModel.Rotation[2]));
 
-        if(saved_ObjectModel.Rotation.Length == 3)
-        currentObjectInUse.transform.eulerAngles = new Vector3(saved_ObjectModel.Rotation[0], saved_ObjectModel.Rotation[1], saved_ObjectModel.Rotation[2]);
+
+        currentObjectInUse.transform.eulerAngles = savedRotation;
+        currentObjectInUse.GetComponent<Object_View>().RaiseValueChanged(saved_ObjectModel.Rotation);
+        //object_Element.controller.ObjectRotated(saved_ObjectModel.Rotation);
     }
 
     private void OnApplicationQuit()
