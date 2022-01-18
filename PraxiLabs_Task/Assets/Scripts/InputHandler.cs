@@ -5,6 +5,8 @@ public class InputHandler : MonoBehaviour
     public float PCRotationSpeed = 10f;
     private Camera cam;
 
+    public event System.Action<float[]> OnMouseDragRotate_Event;
+
     private void Start()
     {
         cam = Manager.Instance.cam;
@@ -20,5 +22,7 @@ public class InputHandler : MonoBehaviour
 
         transform.rotation = Quaternion.AngleAxis(-rotX, up) * transform.rotation;
         transform.rotation = Quaternion.AngleAxis(rotY, right) * transform.rotation;
+
+        OnMouseDragRotate_Event?.Invoke(new float[] { transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z });
     }
 }

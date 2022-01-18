@@ -2,49 +2,52 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Object_Controler : MonoBehaviour, IColor
+public class Object_Controler : MonoBehaviour
 {
-    [SerializeField] 
-    private ObjectData_SO objectData_SO;
-
-    private Renderer _renderer;
-    private MaterialPropertyBlock _propBlock;
     private Manager _manager;
     public Object_Model model { get; private set; }
+    public Object_View view { get; private set; }
 
-    public Object_Controler()
+    public Object_Controler(Object_Model model, Object_View view)
     {
-        model = new Object_Model();
-    }
+        this.model = model;
+        this.view = view;
 
-    private void Awake()
-    {
-        _renderer = GetComponent<Renderer>();
-        _propBlock = new MaterialPropertyBlock();
+        this.view.gameObject.SetActive(false);
+        this.view.Init(SubscribeToEvents, UnsubscribeFromEvents, ObjectRotated);
         _manager = Manager.Instance;
     }
 
-    private void OnEnable()
+    public void SubscribeToEvents()
     {
         _manager.OnColorChanged_Event += ChangeColor;
+        _manager.OnSaveApp_Event += Save_CurrentObjectData;
     }
 
-    private void OnDisable()
+    public void UnsubscribeFromEvents()
     {
         _manager.OnColorChanged_Event -= ChangeColor;
+        _manager.OnSaveApp_Event -= Save_CurrentObjectData;
     }
 
     public void ChangeColor(Color color)
     {
-        _renderer.GetPropertyBlock(_propBlock);
-        _propBlock.SetColor("_Color", color);
-        _renderer.SetPropertyBlock(_propBlock);
-
-       // UpdateModelData()
+        view.ChangeColor(color);
+        model.UpdateColor(new float[] { color.r, color.g, color.b});
     }
 
-    public Color MyColor()
+    public void ObjectRotated(float[] rotation)
     {
-        return _renderer.material.color;
+        model.UpdateRotation(rotation);
+    }
+    
+    public void Save_CurrentObjectData()
+    {
+        model.SaveData();
+    }
+    
+    public Object_Model Load_SavedObjectData()
+    {
+        return model.LoadData<Object_Model>();
     }
 }

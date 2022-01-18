@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using UnityEditor;
 
 public class Manager : MonoBehaviour
 {
@@ -29,6 +28,10 @@ public class Manager : MonoBehaviour
 
     public delegate void ColorChangedEvent(Color _color);
     public event ColorChangedEvent OnColorChanged_Event;
+    
+    public delegate void SaveApp();
+    public event SaveApp OnSaveApp_Event;
+    Object_MVC_Element object_Element;
 
     private void Awake()
     {
@@ -41,15 +44,13 @@ public class Manager : MonoBehaviour
 
         foreach (ObjectData_SO _object in objectsData_List.list)
         {
-            GameObject objectInstan = Instantiate(_object.objectPrefab, viewPoint);
-
-            //Object_Controler object_Controler = objectInstan.GetComponent<Object_Controler>();
-            //object_Controler = new Object_Controler();
-
-            objectInstan.gameObject.SetActive(false);
+            object_Element = new Object_MVC_Element();
+            GameObject objectInstan = object_Element.Initialize(_object.objectPrefab, viewPoint, _object.objectName.Value);
 
             InstanObjects_Dict.Add(objectInstan, _object);
         }
+
+        LoadSavedData();
     }
 
     /// <summary>
@@ -88,5 +89,24 @@ public class Manager : MonoBehaviour
     public bool DoColorsMatch(Color _color1, Color _color2)
     {
         return _color1.r == _color2.r && _color1.g == _color2.g && _color1.b == _color2.b && _color1.a == _color2.a;
+    }
+
+    public void LoadSavedData()
+    {
+        Object_Model saved_ObjectModel = object_Element.controller.Load_SavedObjectData();
+        if (saved_ObjectModel == null) return;
+
+        ObjectSelected(saved_ObjectModel.object_name);
+
+        if (saved_ObjectModel.CurrentColor.Length == 3)
+            ColorSelected(new Color(saved_ObjectModel.CurrentColor[0], saved_ObjectModel.CurrentColor[1], saved_ObjectModel.CurrentColor[2]));
+
+        if(saved_ObjectModel.Rotation.Length == 3)
+        currentObjectInUse.transform.eulerAngles = new Vector3(saved_ObjectModel.Rotation[0], saved_ObjectModel.Rotation[1], saved_ObjectModel.Rotation[2]);
+    }
+
+    private void OnApplicationQuit()
+    {
+        OnSaveApp_Event();
     }
 }
