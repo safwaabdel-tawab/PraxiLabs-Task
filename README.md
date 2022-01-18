@@ -18,8 +18,8 @@
 ### Extra Feature
 #### Saved Data
 - When you reopen the app you will see your selected shape with the last changes you made on it (color and rotation).
-#### Resizable Game View
-- The game view should be responsive in editor and in the build (was tested on editor only though).
+#### Responsive View
+- The game view should be responsive in editor and in the build (was tested in editor and play-mode only though).
 
 ### Platform used
 - PC.
