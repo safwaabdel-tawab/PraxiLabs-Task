@@ -10,9 +10,9 @@ public class Object_Model : ISave
     //Constructor Chaining
     public Object_Model() : this("") { }
 
-    public Object_Model(string object_name) : this(new float[] { }, new float[] { }, object_name) { }
+    public Object_Model(string object_name) : this(new float[] { 0, 0, 0 }, new float[] { 1, 1, 1 }, object_name) { }
 
-    public Object_Model(float[] rotation, float[] currentColor, string object_name )
+    public Object_Model(float[] rotation, float[] currentColor, string object_name)
     {
         Rotation = rotation;
         CurrentColor = currentColor;
